@@ -5,20 +5,9 @@ import re
 
 
 def plot_citations(y_thresh=150):
-    data = pd.read_excel("/Users/elias/Library/CloudStorage/OneDrive-epfl.ch/EMTR-with-super-resolution-review.xlsx")
+    data = pd.read_excel("data/EMTR-with-super-resolution-review.xlsx")
     citations = data["Citations"]
     citations = np.sort(citations, )
-    filt = []
-    for di in data["Note"]:
-        if not isinstance(di, str):
-            filt.append(False)
-            continue
-        if "does not qualify" in di.lower():
-            filt.append(False)
-        else:
-            filt.append(True)
-
-    citations = citations[filt]
     citations_pos = citations[citations > 0]
     plt.figure(figsize=(5, 4))
     plt.stairs(np.log10(citations_pos[::-1]), color="k", label="Citations")
@@ -37,7 +26,7 @@ def plot_citations(y_thresh=150):
 
 
 def plot_resolution():
-    data = pd.read_excel("/Users/elias/Library/CloudStorage/OneDrive-epfl.ch/EMTR-with-super-resolution-review.xlsx")
+    data = pd.read_excel("data/EMTR-with-super-resolution-review.xlsx")
     dates = data["Publication date"]
     resolutions = data["Resolution"]
     resolutions_usable = []
